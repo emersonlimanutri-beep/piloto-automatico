@@ -235,7 +235,7 @@ section{padding:0 22px}
 <div class="foot">Decola Nutri · Piloto Automático — Você no comando.</div>
 
 <script>
-var WHATS = '5561984350270'; // WhatsApp do Emerson (com DDI)
+var WEBHOOK = 'https://fhhtewujnevpcatbiuoc.supabase.co/functions/v1/leads-mentoria-webhook';
 
 var CAPS = [
   {ic:"📊", t:"Diagnóstico do consultório", d:"Um raio-x de como ele funciona hoje e onde a I.A. entra primeiro."},
@@ -253,28 +253,45 @@ document.getElementById('caps').innerHTML = CAPS.map(function(c){
 }).join('');
 
 function radioVal(name){ var el=document.querySelector('input[name="'+name+'"]:checked'); return el?el.value:'—'; }
+function val(id){ var e=document.getElementById(id); return (e && e.value.trim()) ? e.value.trim() : '—'; }
 
 document.getElementById('btn-enviar').addEventListener('click', function(){
   var nome=document.getElementById('i-nome').value.trim();
   var whats=document.getElementById('i-whats').value.trim();
   var err=document.getElementById('err');
-  if(!nome || !whats){ err.classList.add('on'); err.scrollIntoView({behavior:'smooth',block:'center'}); return; }
+  if(!nome || !whats){ err.innerHTML='Preencha pelo menos o <strong>nome</strong> e o <strong>WhatsApp</strong> pra eu conseguir te chamar.'; err.classList.add('on'); err.scrollIntoView({behavior:'smooth',block:'center'}); return; }
   err.classList.remove('on');
 
-  var insta=document.getElementById('i-insta').value.trim()||'—';
-  var dor=document.getElementById('i-dor').value.trim()||'—';
-  var msg =
-    '🚀 Candidatura — Decola Nutri Piloto Automático\n\n'
-    +'Nome: '+nome+'\n'
-    +'Instagram: '+insta+'\n'
-    +'WhatsApp: '+whats+'\n\n'
-    +'Consultório hoje: '+radioVal('momento')+'\n'
-    +'Maior dor/objetivo: '+dor+'\n'
-    +'Já usa I.A.: '+radioVal('usaia')+'\n'
-    +'Investiria: '+radioVal('invest')+'\n'
-    +'De onde me conhece: '+radioVal('origem');
-  window.open('https://wa.me/'+WHATS+'?text='+encodeURIComponent(msg), '_blank');
+  var btn=this, orig=btn.innerHTML; btn.disabled=true; btn.style.opacity=.7; btn.innerHTML='Enviando…';
+
+  var payload = {
+    nome: nome,
+    whatsapp: whats,
+    instagram: val('i-insta'),
+    origem: 'Candidatura (Imersão) · vindo de: ' + radioVal('origem'),
+    consultorio: radioVal('momento'),
+    dor: val('i-dor'),
+    usa_ia: radioVal('usaia'),
+    investiria: radioVal('invest'),
+    interesse: 'Candidatou-se (alta intenção)'
+  };
+
+  fetch(WEBHOOK, { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(payload) })
+    .then(function(r){ if(!r.ok) throw new Error(r.status); return r.json(); })
+    .then(function(){ sucesso(); })
+    .catch(function(){ btn.disabled=false; btn.style.opacity=1; btn.innerHTML=orig; err.innerHTML='Ops, não consegui enviar agora. Confere a internet e tenta de novo.'; err.classList.add('on'); err.scrollIntoView({behavior:'smooth',block:'center'}); });
 });
+
+function sucesso(){
+  var c=document.querySelector('.card-form');
+  c.innerHTML =
+    '<div style="text-align:center;padding:24px 8px">'
+    +'<div style="font-size:46px;line-height:1">✅</div>'
+    +'<h3 style="font-family:var(--serif);font-size:23px;font-weight:600;margin:14px 0 8px">Candidatura enviada! 💚</h3>'
+    +'<p style="color:var(--txtm);font-size:15px;line-height:1.7;max-width:42ch;margin:0 auto">Recebi sua candidatura aqui. Vou ler com carinho e, se fizer sentido, te chamo no WhatsApp. 🚀</p>'
+    +'</div>';
+  c.scrollIntoView({behavior:'smooth',block:'center'});
+}
 </script>
 </body>
 </html>

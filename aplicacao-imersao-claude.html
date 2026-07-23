@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Decola Nutri: Piloto Automático — Candidatura (Imersão Claude)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,600&family=DM+Sans:wght@400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --areia:#e9e3d7; --card:#efeae1; --card2:#ded6c7;
+  --gold:#a68768; --goldlt:#bfa285; --golddim:rgba(166,135,104,.14);
+  --green:#2b5427; --greenlt:#4a6b52; --greendim:rgba(74,107,82,.12);
+  --txt:#071739; --txtm:#5a6472; --txtd:#9a9186;
+  --bdr:rgba(166,135,104,.35); --bdr2:rgba(7,23,57,.10);
+  --navy:#071739; --navy-fg:#f2efe8;
+  --serif:'Fraunces',Georgia,serif;
+  --sans:'DM Sans',-apple-system,'Segoe UI',sans-serif;
+  --mono:'DM Mono','Cascadia Mono',Consolas,monospace;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:var(--sans);background:var(--areia);color:var(--txt);line-height:1.6;-webkit-font-smoothing:antialiased}
+.wrap{max-width:720px;margin:0 auto}
+em{font-style:italic;color:var(--gold)}
+section{padding:0 22px}
+
+/* hero */
+.hero{background:var(--navy);color:var(--navy-fg);padding:46px 22px 50px}
+.hero .seal{display:inline-block;font-family:var(--mono);font-size:10px;letter-spacing:1.2px;text-transform:uppercase;color:var(--goldlt);border:1px solid rgba(191,162,133,.4);padding:6px 12px;border-radius:5px;margin-bottom:24px}
+.hero h1{font-family:var(--serif);font-weight:600;font-size:clamp(29px,7.5vw,44px);line-height:1.1;letter-spacing:-.02em;margin-bottom:20px;text-wrap:balance}
+.hero h1 em{color:var(--goldlt)}
+.hero p{font-size:16px;line-height:1.8;color:rgba(242,239,232,.82);max-width:56ch;margin-bottom:14px}
+.hero p:last-child{margin-bottom:0}
+.hero p strong{color:#fff}
+
+/* blocks */
+.block{padding:38px 22px}
+.block.alt{background:var(--card)}
+.sec-tag{display:inline-block;font-family:var(--mono);font-size:10px;letter-spacing:1px;text-transform:uppercase;color:var(--gold);background:var(--golddim);border:1px solid var(--bdr);padding:5px 11px;border-radius:5px;margin-bottom:16px}
+.block h2{font-family:var(--serif);font-size:clamp(22px,5.5vw,29px);font-weight:600;line-height:1.18;margin-bottom:16px;letter-spacing:-.01em}
+.block h2 em{color:var(--gold)}
+.block p{font-size:15.5px;color:var(--txtm);line-height:1.8;margin-bottom:14px;max-width:60ch}
+.block p strong{color:var(--txt)}
+
+/* formato — pilares */
+.pillars{display:flex;flex-direction:column;gap:14px;margin-top:20px}
+.pillar{background:var(--areia);border:1px solid var(--bdr2);border-radius:13px;padding:20px;position:relative;overflow:hidden}
+.pillar::before{content:'';position:absolute;top:0;left:0;width:4px;height:100%;background:var(--gold)}
+.pillar.ind::before{background:var(--greenlt)}
+.pillar.rec::before{background:var(--goldlt)}
+.pillar .pnum{font-family:var(--mono);font-size:10px;letter-spacing:.8px;text-transform:uppercase;color:var(--gold);margin-bottom:8px}
+.pillar.ind .pnum{color:var(--greenlt)}
+.pillar h3{font-family:var(--serif);font-size:19px;font-weight:600;margin-bottom:8px}
+.pillar p{font-size:14px;color:var(--txtm);line-height:1.65;margin:0}
+.pillar ul{list-style:none;margin-top:12px;display:flex;flex-direction:column;gap:9px}
+.pillar li{font-size:13.5px;color:var(--txtm);line-height:1.55;padding-left:20px;position:relative}
+.pillar li::before{content:'→';position:absolute;left:0;color:var(--gold);font-weight:700}
+.pillar li strong{color:var(--txt)}
+.pillar-meta{margin-top:14px;padding-top:12px;border-top:1px solid var(--bdr2);font-family:var(--mono);font-size:11.5px;color:var(--gold);letter-spacing:.2px;line-height:1.5}
+.bonus-line{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
+.bonus-line .bl{font-family:var(--mono);font-size:11px;color:var(--gold);background:var(--golddim);border:1px solid var(--bdr2);padding:7px 12px;border-radius:6px}
+
+/* vitrine */
+.caps{display:grid;grid-template-columns:1fr;gap:10px;margin-top:20px}
+@media(min-width:560px){.caps{grid-template-columns:1fr 1fr}}
+.cap{display:flex;gap:12px;align-items:flex-start;background:var(--areia);border:1px solid var(--bdr2);border-radius:11px;padding:14px 15px}
+.cap-ic{font-size:19px;flex-shrink:0;line-height:1.3}
+.cap h4{font-family:var(--serif);font-size:14.5px;font-weight:600;margin-bottom:3px;line-height:1.2}
+.cap p{font-size:12px;color:var(--txtm);line-height:1.5;margin:0}
+.caps-close{margin-top:22px;background:var(--navy);color:var(--navy-fg);border-radius:14px;padding:24px 22px;text-align:center;font-size:15px;line-height:1.6;color:rgba(242,239,232,.85)}
+.caps-close strong{display:block;color:var(--goldlt);font-family:var(--serif);font-size:clamp(19px,5vw,24px);font-weight:600;margin-top:8px;line-height:1.2}
+
+/* formulário de candidatura */
+.form-block{background:var(--navy);color:var(--navy-fg);padding:44px 22px 50px}
+.form-block .sec-tag{color:var(--goldlt);background:rgba(191,162,133,.12);border-color:rgba(191,162,133,.4)}
+.form-block h2{font-family:var(--serif);font-size:clamp(23px,6vw,31px);font-weight:600;line-height:1.18;margin-bottom:10px;color:#fff}
+.form-block h2 em{color:var(--goldlt)}
+.form-block .lead{font-size:15px;color:rgba(242,239,232,.8);line-height:1.7;margin-bottom:28px;max-width:54ch}
+.card-form{background:var(--areia);border-radius:16px;padding:26px 22px;color:var(--txt)}
+.fld{margin-bottom:20px}
+.fld label,.q-label{display:block;font-size:13px;font-weight:700;color:var(--txt);margin-bottom:9px}
+.fld .req{color:var(--gold)}
+.fld input,.fld textarea{width:100%;font-family:var(--sans);font-size:15px;color:var(--txt);background:var(--card);border:1px solid var(--bdr2);border-radius:9px;padding:12px 14px;outline:none;transition:border-color .15s}
+.fld input:focus,.fld textarea:focus{border-color:var(--gold)}
+.fld textarea{resize:vertical;min-height:64px}
+.q{margin-bottom:20px}
+.q-opts{display:flex;flex-wrap:wrap;gap:8px}
+.q-opt{position:relative}
+.q-opt input{position:absolute;opacity:0;width:0;height:0}
+.q-opt label{display:block;font-size:13px;color:var(--txtm);background:var(--card);border:1px solid var(--bdr2);border-radius:20px;padding:9px 15px;cursor:pointer;transition:all .12s;font-weight:500}
+.q-opt input:checked + label{background:var(--golddim);border-color:var(--gold);color:var(--txt);font-weight:600}
+.q-opt input:focus-visible + label{outline:2px solid var(--gold);outline-offset:1px}
+.form-err{display:none;background:rgba(224,123,57,.12);border:1px solid rgba(224,123,57,.5);color:#a24e1a;font-size:13px;border-radius:9px;padding:11px 14px;margin-bottom:16px}
+.form-err.on{display:block}
+.submit{width:100%;background:#25623b;color:#fff;font-family:var(--sans);font-size:16px;font-weight:700;border:none;border-radius:11px;padding:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:9px;transition:filter .15s,transform .08s;margin-top:6px}
+.submit:hover{filter:brightness(1.1)}
+.submit:active{transform:translateY(1px)}
+.form-note{font-size:11.5px;color:var(--txtd);text-align:center;margin-top:14px;line-height:1.5}
+
+.foot{text-align:center;padding:26px 22px;font-family:var(--mono);font-size:10.5px;letter-spacing:.5px;color:var(--txtd)}
+</style>
+</head>
+<body>
+
+<!-- HERO / INTRODUÇÃO -->
+<div class="hero">
+  <div class="wrap">
+    <span class="seal">Exclusivo · quem fez a Imersão Claude</span>
+    <h1>Você já viu a IA funcionar. Agora é hora de colocar seu consultório no <em>piloto automático</em>.</h1>
+    <p>Na <strong>Imersão Claude</strong>, você teve o primeiro contato com a Inteligência Artificial trabalhando a seu favor — e sentiu o tamanho do que é possível.</p>
+    <p>Mas imersão é o <strong>mapa</strong>. O que transforma o consultório é a <strong>implementação</strong> — montar, peça por peça e com acompanhamento de perto, a operação que roda no automático.</p>
+    <p>É exatamente isso que a gente faz no <strong>Decola Nutri Piloto Automático</strong>. E como você já fez a imersão, quero abrir as vagas <strong>primeiro pra você</strong>.</p>
+  </div>
+</div>
+
+<!-- O QUE VAMOS FAZER (FORMATO) -->
+<div class="block alt">
+  <div class="wrap">
+    <span class="sec-tag">É isso que vamos fazer juntos</span>
+    <h2>O formato da mentoria.</h2>
+    <p>Nada de curso solto pra assistir e esquecer. É uma mentoria <strong>híbrida</strong>: você aprende em grupo, é acompanhado de perto e monta o seu consultório no automático — com a minha mão junto.</p>
+    <div class="pillars">
+      <div class="pillar">
+        <div class="pnum">✈️ Pilar 1 · Ao vivo em grupo</div>
+        <h3>7 encontros em grupo</h3>
+        <p>A cada encontro você coloca mais uma parte do consultório no automático — do atendimento ao comercial.</p>
+        <div class="pillar-meta">📅 Terças, às 19h30 · ao vivo — e todas ficam gravadas pra assistir quando quiser</div>
+      </div>
+      <div class="pillar ind">
+        <div class="pnum">🎯 Pilar 2 · Individual 1-a-1</div>
+        <h3>4 encontros individuais</h3>
+        <ul>
+          <li><strong>1º · Diagnóstico:</strong> raio-x do seu consultório — o que melhorar e onde a I.A. entra primeiro.</li>
+          <li><strong>2º ao 4º · Implementação:</strong> a gente confere o que você montou e tira suas dúvidas conforme as aulas avançam.</li>
+        </ul>
+        <div class="pillar-meta">📅 Agendados no melhor horário pra você</div>
+      </div>
+      <div class="pillar rec">
+        <div class="pnum">🎬 Pilar 3 · No seu ritmo</div>
+        <h3>Aulas gravadas de gestão</h3>
+        <p>Biblioteca de gestão e estruturação de consultório pra assistir quando quiser e reforçar a base do negócio.</p>
+      </div>
+    </div>
+    <div class="bonus-line">
+      <span class="bl">🎁 Análise do seu Instagram</span>
+      <span class="bl">🤝 Programa de indicação (encontro individual extra por indicação)</span>
+    </div>
+  </div>
+</div>
+
+<!-- VITRINE -->
+<div class="block">
+  <div class="wrap">
+    <span class="sec-tag">O que dá pra montar</span>
+    <h2>Tudo que a I.A. pode fazer no seu consultório.</h2>
+    <p>Piloto automático não é uma coisa só — é um jeito novo de tocar o consultório inteiro. Alguns exemplos:</p>
+    <div class="caps" id="caps"></div>
+    <div class="caps-close">E o que dá pra fazer com a I.A. dentro do seu consultório?<strong>Praticamente tudo que você imaginar.</strong></div>
+  </div>
+</div>
+
+<!-- CANDIDATURA -->
+<div class="form-block">
+  <div class="wrap">
+    <span class="sec-tag">Sua candidatura</span>
+    <h2>Quer <em>uma vaga</em>? Se candidate.</h2>
+    <p class="lead">As vagas são limitadas porque cada aluno tem acompanhamento individual comigo. Preencha abaixo — eu leio cada candidatura e chamo quem fizer sentido.</p>
+
+    <div class="card-form">
+      <div class="form-err" id="err">Preencha pelo menos o <strong>nome</strong> e o <strong>WhatsApp</strong> pra eu conseguir te chamar.</div>
+
+      <div class="fld">
+        <label>Seu nome <span class="req">*</span></label>
+        <input id="i-nome" type="text" placeholder="Como você quer que eu te chame" autocomplete="name">
+      </div>
+      <div class="fld">
+        <label>Seu @ do Instagram</label>
+        <input id="i-insta" type="text" placeholder="@seuperfil" autocomplete="off">
+      </div>
+      <div class="fld">
+        <label>Seu WhatsApp <span class="req">*</span></label>
+        <input id="i-whats" type="text" inputmode="tel" placeholder="(DDD) 9 9999-9999" autocomplete="tel">
+      </div>
+
+      <div class="q">
+        <span class="q-label">Como está seu consultório hoje?</span>
+        <div class="q-opts">
+          <span class="q-opt"><input type="radio" name="momento" id="m1" value="Começando agora"><label for="m1">Começando agora</label></span>
+          <span class="q-opt"><input type="radio" name="momento" id="m2" value="Atendo, mas vivo sem tempo"><label for="m2">Atendo, mas vivo sem tempo</label></span>
+          <span class="q-opt"><input type="radio" name="momento" id="m3" value="Faturo bem, quero escalar"><label for="m3">Faturo bem, quero escalar</label></span>
+        </div>
+      </div>
+
+      <div class="fld">
+        <label>Sua maior dor ou objetivo com a I.A. no consultório?</label>
+        <textarea id="i-dor" placeholder="Em uma ou duas frases…"></textarea>
+      </div>
+
+      <div class="q">
+        <span class="q-label">Você já usa I.A. hoje?</span>
+        <div class="q-opts">
+          <span class="q-opt"><input type="radio" name="usaia" id="u1" value="Não uso"><label for="u1">Não uso</label></span>
+          <span class="q-opt"><input type="radio" name="usaia" id="u2" value="Uso um pouco"><label for="u2">Uso um pouco</label></span>
+          <span class="q-opt"><input type="radio" name="usaia" id="u3" value="Uso bastante"><label for="u3">Uso bastante</label></span>
+        </div>
+      </div>
+
+      <div class="q">
+        <span class="q-label">Quanto você investiria nessa mentoria?</span>
+        <div class="q-opts">
+          <span class="q-opt"><input type="radio" name="invest" id="v1" value="Até R$ 2.000"><label for="v1">Até R$ 2.000</label></span>
+          <span class="q-opt"><input type="radio" name="invest" id="v2" value="R$ 2.000 a 4.000"><label for="v2">R$ 2.000 a 4.000</label></span>
+          <span class="q-opt"><input type="radio" name="invest" id="v3" value="Acima de R$ 4.000"><label for="v3">Acima de R$ 4.000</label></span>
+          <span class="q-opt"><input type="radio" name="invest" id="v4" value="Ainda não sei"><label for="v4">Ainda não sei</label></span>
+        </div>
+      </div>
+
+      <div class="q">
+        <span class="q-label">De onde você me conhece?</span>
+        <div class="q-opts">
+          <span class="q-opt"><input type="radio" name="origem" id="o1" value="Fiz a Imersão Claude"><label for="o1">Fiz a Imersão Claude</label></span>
+          <span class="q-opt"><input type="radio" name="origem" id="o2" value="Outro curso seu"><label for="o2">Outro curso seu</label></span>
+          <span class="q-opt"><input type="radio" name="origem" id="o3" value="Os dois"><label for="o3">Os dois</label></span>
+        </div>
+      </div>
+
+      <button class="submit" id="btn-enviar">Quero me candidatar →</button>
+      <div class="form-note">Ao enviar, abre o WhatsApp do Emerson com a sua candidatura pronta. É só confirmar o envio.</div>
+    </div>
+  </div>
+</div>
+
+<div class="foot">Decola Nutri · Piloto Automático — Você no comando.</div>
+
+<script>
+var WHATS = '5561984350270'; // WhatsApp do Emerson (com DDI)
+
+var CAPS = [
+  {ic:"📊", t:"Diagnóstico do consultório", d:"Um raio-x de como ele funciona hoje e onde a I.A. entra primeiro."},
+  {ic:"📈", t:"Dashboard sob medida", d:"Um painel com o seu método e os seus números, do seu jeito."},
+  {ic:"🧭", t:"Seu método estruturado", d:"Organizar e afinar o seu acompanhamento nutricional num sistema claro."},
+  {ic:"🧪", t:"Rotinas no automático", d:"Anamnese preenchida, exames analisados, relatórios no seu padrão."},
+  {ic:"📦", t:"Materiais que se entregam sozinhos", d:"Boas-vindas e pré-consulta planejados e disparados por meses."},
+  {ic:"🤖", t:"Uma I.A. que te conhece", d:"Treinada no seu jeito, ajudando em todas as suas tarefas do dia."},
+  {ic:"💬", t:"Assistente de vendas", d:"Qualifica leads, responde e conduz o comercial com a sua voz."},
+  {ic:"📱", t:"Um app com a sua cara", d:"Pro paciente e pra você — com o seu nome e a sua marca."},
+  {ic:"💰", t:"Financeiro sob controle", d:"Acompanhar entradas, serviços e metas como nunca antes."}
+];
+document.getElementById('caps').innerHTML = CAPS.map(function(c){
+  return '<div class="cap"><span class="cap-ic">'+c.ic+'</span><div><h4>'+c.t+'</h4><p>'+c.d+'</p></div></div>';
+}).join('');
+
+function radioVal(name){ var el=document.querySelector('input[name="'+name+'"]:checked'); return el?el.value:'—'; }
+
+document.getElementById('btn-enviar').addEventListener('click', function(){
+  var nome=document.getElementById('i-nome').value.trim();
+  var whats=document.getElementById('i-whats').value.trim();
+  var err=document.getElementById('err');
+  if(!nome || !whats){ err.classList.add('on'); err.scrollIntoView({behavior:'smooth',block:'center'}); return; }
+  err.classList.remove('on');
+
+  var insta=document.getElementById('i-insta').value.trim()||'—';
+  var dor=document.getElementById('i-dor').value.trim()||'—';
+  var msg =
+    '🚀 Candidatura — Decola Nutri Piloto Automático\n\n'
+    +'Nome: '+nome+'\n'
+    +'Instagram: '+insta+'\n'
+    +'WhatsApp: '+whats+'\n\n'
+    +'Consultório hoje: '+radioVal('momento')+'\n'
+    +'Maior dor/objetivo: '+dor+'\n'
+    +'Já usa I.A.: '+radioVal('usaia')+'\n'
+    +'Investiria: '+radioVal('invest')+'\n'
+    +'De onde me conhece: '+radioVal('origem');
+  window.open('https://wa.me/'+WHATS+'?text='+encodeURIComponent(msg), '_blank');
+});
+</script>
+</body>
+</html>

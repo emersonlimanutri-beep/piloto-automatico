@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Candidatura — Decola Nutri: Piloto Automático</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,600&family=DM+Sans:wght@400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --areia:#e9e3d7; --card:#efeae1; --card2:#ded6c7;
+  --gold:#a68768; --goldlt:#bfa285; --golddim:rgba(166,135,104,.14);
+  --green:#2b5427; --greenlt:#4a6b52; --greendim:rgba(74,107,82,.12);
+  --txt:#071739; --txtm:#5a6472; --txtd:#9a9186;
+  --bdr:rgba(166,135,104,.35); --bdr2:rgba(7,23,57,.10);
+  --navy:#071739; --navy-fg:#f2efe8;
+  --serif:'Fraunces',Georgia,serif;
+  --sans:'DM Sans',-apple-system,'Segoe UI',sans-serif;
+  --mono:'DM Mono','Cascadia Mono',Consolas,monospace;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:var(--sans);background:var(--areia);color:var(--txt);line-height:1.6;-webkit-font-smoothing:antialiased}
+.wrap{max-width:640px;margin:0 auto}
+em{font-style:italic;color:var(--gold)}
+
+/* hero / intro curta */
+.hero{background:var(--navy);color:var(--navy-fg);padding:44px 22px 40px}
+.hero .seal{display:inline-block;font-family:var(--mono);font-size:10px;letter-spacing:1.2px;text-transform:uppercase;color:var(--goldlt);border:1px solid rgba(191,162,133,.4);padding:6px 12px;border-radius:5px;margin-bottom:22px}
+.hero h1{font-family:var(--serif);font-weight:600;font-size:clamp(28px,7vw,42px);line-height:1.12;letter-spacing:-.02em;margin-bottom:18px;text-wrap:balance}
+.hero h1 em{color:var(--goldlt)}
+.hero p{font-size:15.5px;line-height:1.75;color:rgba(242,239,232,.82);max-width:56ch}
+.hero p strong{color:#fff}
+.hero .chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:22px}
+.hero .chip{font-family:var(--mono);font-size:10.5px;letter-spacing:.4px;color:var(--goldlt);background:rgba(191,162,133,.1);border:1px solid rgba(191,162,133,.3);padding:6px 11px;border-radius:6px}
+
+/* formulário */
+.form-wrap{padding:34px 22px 54px}
+.card-form{background:var(--card);border:1px solid var(--bdr2);border-radius:16px;padding:26px 22px}
+.intro-q{font-size:14.5px;color:var(--txtm);line-height:1.7;margin-bottom:24px}
+.intro-q strong{color:var(--txt)}
+.fld{margin-bottom:20px}
+.fld label,.q-label{display:block;font-size:13px;font-weight:700;color:var(--txt);margin-bottom:9px}
+.fld .req{color:var(--gold)}
+.fld input,.fld textarea{width:100%;font-family:var(--sans);font-size:15px;color:var(--txt);background:var(--areia);border:1px solid var(--bdr2);border-radius:9px;padding:12px 14px;outline:none;transition:border-color .15s}
+.fld input:focus,.fld textarea:focus{border-color:var(--gold)}
+.fld textarea{resize:vertical;min-height:66px}
+.q{margin-bottom:22px}
+.q-opts{display:flex;flex-wrap:wrap;gap:8px}
+.q-opt{position:relative}
+.q-opt input{position:absolute;opacity:0;width:0;height:0}
+.q-opt label{display:block;font-size:13px;color:var(--txtm);background:var(--areia);border:1px solid var(--bdr2);border-radius:20px;padding:9px 15px;cursor:pointer;transition:all .12s;font-weight:500}
+.q-opt input:checked + label{background:var(--golddim);border-color:var(--gold);color:var(--txt);font-weight:600}
+.q-opt input:focus-visible + label{outline:2px solid var(--gold);outline-offset:1px}
+.form-err{display:none;background:rgba(224,123,57,.12);border:1px solid rgba(224,123,57,.5);color:#a24e1a;font-size:13px;border-radius:9px;padding:11px 14px;margin-bottom:16px}
+.form-err.on{display:block}
+.submit{width:100%;background:#25623b;color:#fff;font-family:var(--sans);font-size:16px;font-weight:700;border:none;border-radius:11px;padding:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:9px;transition:filter .15s,transform .08s;margin-top:4px}
+.submit:hover{filter:brightness(1.1)}
+.submit:active{transform:translateY(1px)}
+.form-note{font-size:11.5px;color:var(--txtd);text-align:center;margin-top:14px;line-height:1.5}
+
+.foot{text-align:center;padding:24px 22px 34px;font-family:var(--mono);font-size:10.5px;letter-spacing:.5px;color:var(--txtd)}
+</style>
+</head>
+<body>
+
+<!-- HERO / INTRO CURTA -->
+<div class="hero">
+  <div class="wrap">
+    <span class="seal">Candidatura · vagas limitadas</span>
+    <h1>Coloque seu consultório no <em>piloto automático</em>.</h1>
+    <p>Uma mentoria de <strong>7 semanas</strong> pra colocar a Inteligência Artificial pra trabalhar no seu consultório — com encontros em grupo e <strong>acompanhamento individual</strong> comigo. As vagas são limitadas porque cada aluno tem atenção 1-a-1.</p>
+    <div class="chips">
+      <span class="chip">7 semanas</span>
+      <span class="chip">Grupo + individual</span>
+      <span class="chip">Método HERO · Emerson Lima</span>
+    </div>
+  </div>
+</div>
+
+<!-- FORMULÁRIO DE APLICAÇÃO -->
+<div class="form-wrap">
+  <div class="wrap">
+    <div class="card-form">
+      <p class="intro-q">Preencha pra se candidatar — <strong>eu leio cada resposta</strong> e chamo quem faz sentido pra turma.</p>
+
+      <div class="form-err" id="err">Preencha pelo menos o <strong>nome</strong> e o <strong>WhatsApp</strong> pra eu conseguir te chamar.</div>
+
+      <div class="fld">
+        <label>Seu nome <span class="req">*</span></label>
+        <input id="i-nome" type="text" placeholder="Como você quer que eu te chame" autocomplete="name">
+      </div>
+      <div class="fld">
+        <label>Seu @ do Instagram</label>
+        <input id="i-insta" type="text" placeholder="@seuperfil" autocomplete="off">
+      </div>
+      <div class="fld">
+        <label>Seu WhatsApp <span class="req">*</span></label>
+        <input id="i-whats" type="text" inputmode="tel" placeholder="(DDD) 9 9999-9999" autocomplete="tel">
+      </div>
+
+      <div class="q">
+        <span class="q-label">Como está seu consultório hoje?</span>
+        <div class="q-opts">
+          <span class="q-opt"><input type="radio" name="momento" id="m1" value="Começando agora"><label for="m1">Começando agora</label></span>
+          <span class="q-opt"><input type="radio" name="momento" id="m2" value="Atendo, mas vivo sem tempo"><label for="m2">Atendo, mas vivo sem tempo</label></span>
+          <span class="q-opt"><input type="radio" name="momento" id="m3" value="Faturo bem, quero escalar"><label for="m3">Faturo bem, quero escalar</label></span>
+        </div>
+      </div>
+
+      <div class="fld">
+        <label>Sua maior dor ou objetivo com a I.A. no consultório?</label>
+        <textarea id="i-dor" placeholder="Em uma ou duas frases…"></textarea>
+      </div>
+
+      <div class="q">
+        <span class="q-label">Você já usa I.A. hoje?</span>
+        <div class="q-opts">
+          <span class="q-opt"><input type="radio" name="usaia" id="u1" value="Não uso"><label for="u1">Não uso</label></span>
+          <span class="q-opt"><input type="radio" name="usaia" id="u2" value="Uso um pouco"><label for="u2">Uso um pouco</label></span>
+          <span class="q-opt"><input type="radio" name="usaia" id="u3" value="Uso bastante"><label for="u3">Uso bastante</label></span>
+        </div>
+      </div>
+
+      <div class="q">
+        <span class="q-label">Quanto você investiria nessa mentoria?</span>
+        <div class="q-opts">
+          <span class="q-opt"><input type="radio" name="invest" id="v1" value="Até R$ 2.000"><label for="v1">Até R$ 2.000</label></span>
+          <span class="q-opt"><input type="radio" name="invest" id="v2" value="R$ 2.000 a 4.000"><label for="v2">R$ 2.000 a 4.000</label></span>
+          <span class="q-opt"><input type="radio" name="invest" id="v3" value="Acima de R$ 4.000"><label for="v3">Acima de R$ 4.000</label></span>
+          <span class="q-opt"><input type="radio" name="invest" id="v4" value="Ainda não sei"><label for="v4">Ainda não sei</label></span>
+        </div>
+      </div>
+
+      <div class="q">
+        <span class="q-label">De onde você me conhece?</span>
+        <div class="q-opts">
+          <span class="q-opt"><input type="radio" name="origem" id="o1" value="Instagram"><label for="o1">Instagram</label></span>
+          <span class="q-opt"><input type="radio" name="origem" id="o2" value="Fiz a Imersão Claude"><label for="o2">Fiz a Imersão Claude</label></span>
+          <span class="q-opt"><input type="radio" name="origem" id="o3" value="Outro curso seu"><label for="o3">Outro curso seu</label></span>
+          <span class="q-opt"><input type="radio" name="origem" id="o4" value="Indicação de alguém"><label for="o4">Indicação</label></span>
+        </div>
+      </div>
+
+      <button class="submit" id="btn-enviar">Quero me candidatar →</button>
+      <div class="form-note">Ao enviar, abre o WhatsApp do Emerson com a sua candidatura pronta. É só confirmar o envio.</div>
+    </div>
+  </div>
+</div>
+
+<div class="foot">Decola Nutri · Piloto Automático — Você no comando.</div>
+
+<script>
+var WHATS = '5561984350270'; // WhatsApp do Emerson (com DDI)
+
+function radioVal(name){ var el=document.querySelector('input[name="'+name+'"]:checked'); return el?el.value:'—'; }
+
+document.getElementById('btn-enviar').addEventListener('click', function(){
+  var nome=document.getElementById('i-nome').value.trim();
+  var whats=document.getElementById('i-whats').value.trim();
+  var err=document.getElementById('err');
+  if(!nome || !whats){ err.classList.add('on'); err.scrollIntoView({behavior:'smooth',block:'center'}); return; }
+  err.classList.remove('on');
+
+  var insta=document.getElementById('i-insta').value.trim()||'—';
+  var dor=document.getElementById('i-dor').value.trim()||'—';
+  var msg =
+    '🚀 Candidatura — Decola Nutri Piloto Automático\n\n'
+    +'Nome: '+nome+'\n'
+    +'Instagram: '+insta+'\n'
+    +'WhatsApp: '+whats+'\n\n'
+    +'Consultório hoje: '+radioVal('momento')+'\n'
+    +'Maior dor/objetivo: '+dor+'\n'
+    +'Já usa I.A.: '+radioVal('usaia')+'\n'
+    +'Investiria: '+radioVal('invest')+'\n'
+    +'Me conhece de: '+radioVal('origem');
+  window.open('https://wa.me/'+WHATS+'?text='+encodeURIComponent(msg), '_blank');
+});
+</script>
+</body>
+</html>

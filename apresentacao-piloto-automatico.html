@@ -193,6 +193,10 @@ section{padding:0 22px}
 .pf-n{font-family:var(--serif);font-size:22px;font-weight:600;color:var(--gold);line-height:1}
 .pf-n2{font-family:var(--serif);font-size:16px;font-weight:600;color:var(--txt);line-height:1.25}
 .pf-l{font-family:var(--mono);font-size:9.5px;letter-spacing:.5px;text-transform:uppercase;color:var(--txtd)}
+.anl-idcard{display:flex;flex-direction:column;gap:1px;border:1px solid var(--bdr2);border-radius:11px;overflow:hidden;background:var(--card2)}
+.idrow{display:flex;gap:12px;background:var(--card);padding:13px 16px}
+.idlbl{font-family:var(--mono);font-size:10px;letter-spacing:.5px;text-transform:uppercase;color:var(--gold);min-width:64px;flex-shrink:0;padding-top:2px}
+.idval{font-size:14.5px;color:var(--txt);line-height:1.5;font-weight:500}
 .anl-eixos{display:flex;flex-direction:column;gap:15px}
 .eixo-top{display:flex;justify-content:space-between;align-items:baseline;font-size:13.5px;color:var(--txt);margin-bottom:6px}
 .eixo-n{font-family:var(--mono);font-size:12px;color:var(--gold);font-weight:500}
@@ -552,6 +556,12 @@ function renderAnalise(data, fromBuilder){
      + (a.foco?'<div class="pf pf-wide"><span class="pf-n2">'+esc(a.foco)+'</span><span class="pf-l">foco do perfil hoje</span></div>':'')
     +'</div>' : '';
 
+  var idcard = (a.nicho||a.publico) ?
+    '<div class="anl-sec"><h2>🎯 Quem você é no Instagram</h2><div class="anl-idcard">'
+    + (a.nicho?'<div class="idrow"><span class="idlbl">Nicho</span><span class="idval">'+esc(a.nicho)+'</span></div>':'')
+    + (a.publico?'<div class="idrow"><span class="idlbl">Público</span><span class="idval">'+esc(a.publico)+'</span></div>':'')
+    +'</div></div>' : '';
+
   var eixos = (a.eixos&&a.eixos.length) ?
     '<div class="anl-sec"><h2>📊 Notas por eixo</h2><div class="anl-eixos">'
     + a.eixos.map(function(e){ var pct=Math.max(0,Math.min(10,Number(e.nota)||0))*10; return '<div class="eixo"><div class="eixo-top"><span>'+esc(e.nome)+'</span><span class="eixo-n">'+esc(e.nota)+'/10</span></div><div class="eixo-bar"><i style="width:'+pct+'%"></i></div></div>'; }).join('')
@@ -573,10 +583,11 @@ function renderAnalise(data, fromBuilder){
       +'<div class="who">'+esc(a.arroba||'')+(nome?' · '+esc(nome):'')+'</div>'
     +'</div>'
     + perfil
+    + idcard
     + eixos
-    + (a.diagnostico ? '<div class="anl-sec"><h2>📋 Diagnóstico geral</h2><div class="anl-diag">'+esc(a.diagnostico)+'</div></div>' : '')
-    + (fortes ? '<div class="anl-sec"><h2>💪 O que já está bom</h2><div class="anl-list">'+fortes+'</div></div>' : '')
-    + (opp ? '<div class="anl-sec"><h2>🎯 Oportunidades</h2><div class="anl-list">'+opp+'</div></div>' : '')
+    + (a.diagnostico ? '<div class="anl-sec"><h2>📋 Diagnóstico sem filtro</h2><div class="anl-diag">'+esc(a.diagnostico)+'</div></div>' : '')
+    + (fortes ? '<div class="anl-sec"><h2>🔥 O que está no auge</h2><div class="anl-list">'+fortes+'</div></div>' : '')
+    + (opp ? '<div class="anl-sec"><h2>🩹 O que está te segurando</h2><div class="anl-list">'+opp+'</div></div>' : '')
     + (a.bioSugerida ? '<div class="anl-sec"><h2>✍️ Bio sugerida</h2><div class="anl-bio"><div class="anl-bio-l">Pode copiar e colar:</div>'+esc(a.bioSugerida)+'</div></div>' : '')
     + (ideias ? '<div class="anl-sec"><h2>💡 Ideias de conteúdo pra já</h2><div class="anl-list">'+ideias+'</div></div>' : '')
     + (estr ? '<div class="anl-sec"><h2>🚀 Estratégias sugeridas</h2><div class="anl-estrat">'+estr+'</div></div>' : '')

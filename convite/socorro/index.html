@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Decola Nutri: Piloto Automático — Apresentação</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,600&family=DM+Sans:wght@400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --areia:#e9e3d7; --card:#efeae1; --card2:#ded6c7;
+  --gold:#a68768; --goldlt:#bfa285; --golddim:rgba(166,135,104,.14);
+  --green:#2b5427; --greenlt:#4a6b52; --greendim:rgba(74,107,82,.12);
+  --txt:#071739; --txtm:#5a6472; --txtd:#9a9186;
+  --bdr:rgba(166,135,104,.35); --bdr2:rgba(7,23,57,.10);
+  --navy:#071739; --navy-fg:#f2efe8;
+  --serif:'Fraunces',Georgia,serif;
+  --sans:'DM Sans',-apple-system,'Segoe UI',sans-serif;
+  --mono:'DM Mono','Cascadia Mono',Consolas,monospace;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:var(--sans);background:var(--areia);color:var(--txt);line-height:1.6;-webkit-font-smoothing:antialiased}
+.hidden{display:none!important}
+em{font-style:italic;color:var(--gold)}
+
+/* ============ MODO MONTADOR ============ */
+#builder{max-width:560px;margin:0 auto;padding:32px 20px 80px}
+.bld-head{margin-bottom:26px}
+.bld-head .kick{font-family:var(--mono);font-size:10px;letter-spacing:1.2px;text-transform:uppercase;color:var(--gold)}
+.bld-head h1{font-family:var(--serif);font-size:26px;font-weight:600;margin:6px 0 4px;letter-spacing:-.01em}
+.bld-head p{font-size:13.5px;color:var(--txtm)}
+.fld{margin-bottom:18px}
+.fld label{display:block;font-size:11px;font-weight:700;letter-spacing:.6px;text-transform:uppercase;color:var(--txtd);font-family:var(--mono);margin-bottom:7px}
+.fld input,.fld select,.fld textarea{width:100%;font-family:var(--sans);font-size:15px;color:var(--txt);background:var(--card);border:1px solid var(--bdr2);border-radius:9px;padding:12px 14px;outline:none;transition:border-color .15s}
+.fld input:focus,.fld select:focus,.fld textarea:focus{border-color:var(--gold)}
+.fld .hint{font-size:11.5px;color:var(--txtd);margin-top:5px}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.toggles{display:flex;flex-wrap:wrap;gap:16px;margin:4px 0 22px}
+.tg{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--txtm);cursor:pointer;user-select:none}
+.tg input{width:17px;height:17px;accent-color:var(--gold);cursor:pointer}
+.actions{display:flex;flex-direction:column;gap:10px;margin-top:8px}
+.btn{font-family:var(--sans);font-size:15px;font-weight:600;border:none;border-radius:10px;padding:14px 18px;cursor:pointer;transition:transform .08s,filter .15s;text-align:center;text-decoration:none;display:inline-flex;align-items:center;justify-content:center;gap:8px}
+.btn:active{transform:translateY(1px)}
+.btn-primary{background:var(--navy);color:var(--navy-fg)}
+.btn-primary:hover{filter:brightness(1.15)}
+.btn-gold{background:var(--gold);color:#fff}
+.btn-gold:hover{filter:brightness(1.06)}
+.btn-wa{background:#25623b;color:#fff}
+.btn-wa:hover{filter:brightness(1.12)}
+.btn-ghost{background:transparent;color:var(--txtm);border:1px solid var(--bdr)}
+.btn-ghost:hover{background:var(--card)}
+.linkbox{margin-top:22px;padding:16px;background:var(--card);border:1px solid var(--bdr);border-radius:11px}
+.linkbox .lbl{font-family:var(--mono);font-size:10px;letter-spacing:.8px;text-transform:uppercase;color:var(--gold);margin-bottom:8px}
+.linkbox .url{font-family:var(--mono);font-size:11.5px;color:var(--txtm);word-break:break-all;background:var(--areia);border:1px solid var(--bdr2);border-radius:7px;padding:10px 12px;max-height:74px;overflow:auto}
+.linkbox .btns{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:12px}
+.foot-note{font-size:11px;color:var(--txtd);margin-top:22px;line-height:1.6;font-family:var(--mono)}
+
+/* ============ MODO APRESENTAÇÃO ============ */
+#show{max-width:720px;margin:0 auto;padding:0 0 40px}
+.backbar{position:sticky;top:0;z-index:20;background:var(--navy);color:var(--navy-fg);font-family:var(--mono);font-size:12px;padding:9px 16px;display:flex;align-items:center;gap:8px;cursor:pointer}
+.backbar:hover{filter:brightness(1.2)}
+
+section{padding:0 22px}
+.sec-tag{display:inline-block;font-family:var(--mono);font-size:10px;letter-spacing:1px;text-transform:uppercase;color:var(--gold);background:var(--golddim);border:1px solid var(--bdr);padding:5px 11px;border-radius:5px;margin-bottom:16px}
+
+/* hero */
+.hero{background:var(--navy);color:var(--navy-fg);padding:44px 22px 48px;margin-bottom:6px}
+.hero .seal{display:inline-block;font-family:var(--mono);font-size:10px;letter-spacing:1.3px;text-transform:uppercase;color:var(--goldlt);border:1px solid rgba(191,162,133,.4);padding:5px 12px;border-radius:5px;margin-bottom:24px}
+.hero h1{font-family:var(--serif);font-weight:600;font-size:clamp(30px,8vw,44px);line-height:1.08;letter-spacing:-.02em;margin-bottom:16px;text-wrap:balance}
+.hero h1 em{color:var(--goldlt)}
+.hero .sub{font-size:16px;line-height:1.7;color:rgba(242,239,232,.82);max-width:52ch}
+.hero .sub strong{color:#fff}
+.hero .planebar{margin-top:26px;display:flex;align-items:center;gap:7px;font-family:var(--mono);font-size:10px;letter-spacing:.6px;color:rgba(242,239,232,.5);flex-wrap:wrap}
+.hero .planebar span{white-space:nowrap}
+
+/* generic block */
+.block{padding:38px 22px}
+.block h2{font-family:var(--serif);font-size:clamp(22px,5.5vw,29px);font-weight:600;line-height:1.18;margin-bottom:16px;letter-spacing:-.01em}
+.block p{font-size:15.5px;color:var(--txtm);line-height:1.8;margin-bottom:14px;max-width:60ch}
+.block p strong{color:var(--txt)}
+.block.alt{background:var(--card)}
+
+/* problema card */
+.pain{border-left:3px solid var(--gold);background:var(--golddim);border-radius:0 9px 9px 0;padding:18px 20px;font-size:15.5px;line-height:1.75;color:var(--txt);margin:6px 0 4px}
+.pain strong{color:var(--txt)}
+
+/* formato — 3 pilares */
+.pillars{display:flex;flex-direction:column;gap:14px;margin-top:20px}
+.pillar{background:var(--card);border:1px solid var(--bdr2);border-radius:13px;padding:20px;position:relative;overflow:hidden}
+.pillar::before{content:'';position:absolute;top:0;left:0;width:4px;height:100%;background:var(--gold)}
+.pillar.ind::before{background:var(--greenlt)}
+.pillar.rec::before{background:var(--goldlt)}
+.pillar .pnum{font-family:var(--mono);font-size:10px;letter-spacing:.8px;text-transform:uppercase;color:var(--gold);margin-bottom:8px;display:flex;align-items:center;gap:8px}
+.pillar.ind .pnum{color:var(--greenlt)}
+.pillar h3{font-family:var(--serif);font-size:19px;font-weight:600;margin-bottom:8px}
+.pillar p{font-size:14px;color:var(--txtm);line-height:1.65;margin:0}
+.pillar ul{list-style:none;margin-top:12px;display:flex;flex-direction:column;gap:9px}
+.pillar li{font-size:13.5px;color:var(--txtm);line-height:1.55;padding-left:20px;position:relative}
+.pillar li::before{content:'→';position:absolute;left:0;color:var(--gold);font-weight:700}
+.pillar li strong{color:var(--txt)}
+.pillar-meta{margin-top:14px;padding-top:12px;border-top:1px solid var(--bdr2);font-family:var(--mono);font-size:11.5px;color:var(--gold);letter-spacing:.2px;line-height:1.5}
+
+/* plano de voo — encontros */
+.enc-grid{display:grid;grid-template-columns:1fr;gap:11px;margin-top:20px}
+@media(min-width:560px){.enc-grid{grid-template-columns:1fr 1fr}}
+.enc{background:var(--card);border:1px solid var(--bdr2);border-radius:11px;padding:17px 18px;position:relative;overflow:hidden}
+.enc::before{content:'';position:absolute;top:0;left:0;width:3px;height:100%;background:var(--gold)}
+.enc.finale::before{background:var(--greenlt)}
+.enc .top{display:flex;align-items:center;gap:9px;margin-bottom:9px}
+.enc .n{font-family:var(--serif);font-size:17px;font-weight:600;color:var(--gold)}
+.enc.finale .n{color:var(--greenlt)}
+.enc .fase{font-family:var(--mono);font-size:9px;letter-spacing:.7px;text-transform:uppercase;color:var(--gold);background:var(--golddim);padding:2px 7px;border-radius:4px}
+.enc.finale .fase{color:var(--greenlt);background:var(--greendim)}
+.enc .t{font-family:var(--serif);font-size:16px;font-weight:600;line-height:1.2;margin-bottom:7px}
+.enc .d{font-size:12.5px;color:var(--txtm);line-height:1.5;margin-bottom:11px}
+.enc .sai{display:flex;gap:7px;align-items:flex-start;font-size:11.5px;color:var(--greenlt);line-height:1.45}
+.enc .sai::before{content:'✓';color:var(--gold);font-weight:700;flex-shrink:0}
+.enc.finale .sai::before{color:var(--greenlt)}
+
+/* vitrine de possibilidades */
+.caps{display:grid;grid-template-columns:1fr;gap:10px;margin-top:20px}
+@media(min-width:560px){.caps{grid-template-columns:1fr 1fr}}
+.cap{display:flex;gap:13px;align-items:flex-start;background:var(--card);border:1px solid var(--bdr2);border-radius:11px;padding:15px 16px}
+.cap-ic{font-size:20px;flex-shrink:0;line-height:1.3}
+.cap h4{font-family:var(--serif);font-size:15px;font-weight:600;margin-bottom:4px;line-height:1.2}
+.cap p{font-size:12.5px;color:var(--txtm);line-height:1.5;margin:0}
+.caps-close{margin-top:22px;background:var(--navy);color:var(--navy-fg);border-radius:14px;padding:26px 22px;text-align:center;font-size:16px;line-height:1.65;color:rgba(242,239,232,.85)}
+.caps-close strong{display:block;color:var(--goldlt);font-family:var(--serif);font-size:clamp(20px,5vw,26px);font-weight:600;margin-top:10px;line-height:1.2}
+.caps-close .caps-sub{display:block;margin-top:12px;font-size:13.5px;font-style:italic;color:rgba(242,239,232,.6)}
+
+/* saída / transformação */
+.outcome{background:var(--navy);color:var(--navy-fg);border-radius:15px;padding:30px 24px;margin-top:8px}
+.outcome h3{font-family:var(--serif);font-size:22px;font-weight:600;margin-bottom:14px;color:#fff;line-height:1.25}
+.outcome h3 em{color:var(--goldlt)}
+.outcome p{font-size:15px;color:rgba(242,239,232,.82);line-height:1.75;margin:0}
+
+/* pra quem é */
+.forwho{display:flex;flex-direction:column;gap:10px;margin-top:16px}
+.forwho .fw{display:flex;gap:12px;align-items:flex-start;font-size:15px;color:var(--txtm);line-height:1.6}
+.forwho .fw::before{content:'✈';color:var(--gold);font-size:15px;flex-shrink:0;margin-top:1px}
+.forwho .fw strong{color:var(--txt)}
+
+/* oferta */
+.offer{background:var(--card);border:2px solid var(--gold);border-radius:16px;padding:28px 24px;text-align:center;margin-top:8px}
+.offer .otag{font-family:var(--mono);font-size:11px;letter-spacing:1px;text-transform:uppercase;color:var(--gold);margin-bottom:12px}
+.offer .oturma{font-family:var(--serif);font-size:22px;font-weight:600;color:var(--txt);line-height:1.3;margin-bottom:10px}
+.offer .ovalor{font-size:18px;color:var(--green);font-weight:700;margin-bottom:4px}
+.offer .ochips{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-top:16px}
+.offer .ochip{font-family:var(--mono);font-size:11px;color:var(--txtm);background:var(--areia);border:1px solid var(--bdr2);padding:6px 11px;border-radius:6px}
+
+/* bônus */
+.bonus{position:relative;background:var(--golddim);border:1.5px dashed var(--gold);border-radius:16px;padding:26px 24px;margin-top:8px}
+.bonus .btag{font-family:var(--mono);font-size:11px;letter-spacing:.8px;text-transform:uppercase;color:var(--gold);margin-bottom:12px;display:flex;align-items:center;gap:7px}
+.bonus h3{font-family:var(--serif);font-size:21px;font-weight:600;line-height:1.25;margin-bottom:10px;color:var(--txt)}
+.bonus p{font-size:14.5px;color:var(--txtm);line-height:1.75;margin:0}
+.bonus p strong{color:var(--txt)}
+.bonus .bchips{display:flex;flex-wrap:wrap;gap:7px;margin-top:15px}
+.bonus .bchip{font-family:var(--mono);font-size:10.5px;color:var(--gold);background:var(--areia);border:1px solid var(--bdr2);padding:5px 10px;border-radius:6px}
+.bonus-btn{margin-top:18px;background:var(--gold);color:#fff;font-family:var(--sans);font-size:15px;font-weight:600;border:none;border-radius:10px;padding:13px 22px;cursor:pointer;display:inline-flex;align-items:center;gap:8px;transition:filter .15s,transform .08s}
+.bonus-btn:hover{filter:brightness(1.08)}
+.bonus-btn:active{transform:translateY(1px)}
+
+/* tela de análise do Instagram */
+.anl-hero{background:var(--navy);color:var(--navy-fg);padding:38px 22px 34px}
+.anl-hero .at{font-family:var(--mono);font-size:11px;letter-spacing:.9px;text-transform:uppercase;color:var(--goldlt);margin-bottom:16px;display:flex;align-items:center;gap:7px}
+.anl-hero h1{font-family:var(--serif);font-size:clamp(26px,6.5vw,36px);font-weight:600;line-height:1.12;margin-bottom:10px}
+.anl-hero .who{font-family:var(--mono);font-size:13px;color:var(--goldlt)}
+.anl-sec{padding:30px 22px 4px;max-width:720px;margin:0 auto}
+.anl-sec h2{font-family:var(--serif);font-size:20px;font-weight:600;margin-bottom:15px;display:flex;align-items:center;gap:9px}
+.anl-diag{border-left:3px solid var(--gold);background:var(--golddim);border-radius:0 9px 9px 0;padding:18px 20px;font-size:15px;line-height:1.75;color:var(--txt)}
+.anl-list{display:flex;flex-direction:column;gap:12px}
+.anl-item{display:flex;gap:12px;align-items:flex-start;font-size:14.5px;line-height:1.6;color:var(--txtm)}
+.anl-item strong{color:var(--txt)}
+.anl-item::before{flex-shrink:0;font-weight:700;line-height:1.5}
+.anl-item.pos::before{content:'✓';color:var(--green)}
+.anl-item.opp::before{content:'→';color:var(--gold)}
+.anl-estrat{display:flex;flex-direction:column;gap:12px}
+.anl-card{background:var(--card);border:1px solid var(--bdr2);border-radius:12px;padding:18px 20px 18px 56px;position:relative}
+.anl-card .enum{position:absolute;left:18px;top:18px;width:26px;height:26px;border-radius:7px;background:var(--golddim);color:var(--gold);font-family:var(--serif);font-weight:600;font-size:14px;display:flex;align-items:center;justify-content:center}
+.anl-card h3{font-family:var(--serif);font-size:16.5px;font-weight:600;margin-bottom:6px;line-height:1.25}
+.anl-card p{font-size:13.5px;color:var(--txtm);line-height:1.6;margin:0}
+.anl-foot{margin:26px auto 0;max-width:676px;background:var(--navy);color:var(--navy-fg);border-radius:14px;padding:28px 22px;text-align:center}
+.anl-foot p{font-size:15px;line-height:1.7;color:rgba(242,239,232,.85);margin-bottom:18px}
+.anl-foot p strong{color:#fff}
+.anl-back{display:flex;align-items:center;justify-content:center;gap:7px;margin:22px auto;color:var(--txtm);font-size:13px;cursor:pointer;font-family:var(--mono)}
+.anl-back:hover{color:var(--gold)}
+/* análise aprofundada */
+.anl-perfil{display:flex;flex-wrap:wrap;gap:10px;max-width:720px;margin:0 auto;padding:24px 22px 0}
+.anl-perfil .pf{flex:1;min-width:96px;background:var(--card);border:1px solid var(--bdr2);border-radius:11px;padding:14px 16px;display:flex;flex-direction:column;gap:3px}
+.anl-perfil .pf-wide{flex:1 1 100%}
+.pf-n{font-family:var(--serif);font-size:22px;font-weight:600;color:var(--gold);line-height:1}
+.pf-n2{font-family:var(--serif);font-size:16px;font-weight:600;color:var(--txt);line-height:1.25}
+.pf-l{font-family:var(--mono);font-size:9.5px;letter-spacing:.5px;text-transform:uppercase;color:var(--txtd)}
+.anl-idcard{display:flex;flex-direction:column;gap:1px;border:1px solid var(--bdr2);border-radius:11px;overflow:hidden;background:var(--card2)}
+.idrow{display:flex;gap:12px;background:var(--card);padding:13px 16px}
+.idlbl{font-family:var(--mono);font-size:10px;letter-spacing:.5px;text-transform:uppercase;color:var(--gold);min-width:64px;flex-shrink:0;padding-top:2px}
+.idval{font-size:14.5px;color:var(--txt);line-height:1.5;font-weight:500}
+.anl-eixos{display:flex;flex-direction:column;gap:15px}
+.eixo-top{display:flex;justify-content:space-between;align-items:baseline;font-size:13.5px;color:var(--txt);margin-bottom:6px}
+.eixo-n{font-family:var(--mono);font-size:12px;color:var(--gold);font-weight:500}
+.eixo-bar{height:7px;background:var(--card2);border-radius:5px;overflow:hidden}
+.eixo-bar i{display:block;height:100%;background:linear-gradient(90deg,var(--goldlt),var(--gold));border-radius:5px}
+.anl-bio{border:1.5px dashed var(--gold);background:var(--golddim);border-radius:11px;padding:16px 18px;font-size:15px;line-height:1.7;color:var(--txt);white-space:pre-line}
+.anl-bio-l{font-family:var(--mono);font-size:10px;letter-spacing:.6px;text-transform:uppercase;color:var(--gold);margin-bottom:8px}
+.anl-item.idea::before{content:'💡'}
+.anl-passo{max-width:676px;margin:26px auto 0;background:var(--greendim);border-left:3px solid var(--greenlt);border-radius:0 11px 11px 0;padding:18px 20px}
+.anl-passo .pl{font-family:var(--mono);font-size:10px;letter-spacing:.6px;text-transform:uppercase;color:var(--greenlt);margin-bottom:6px}
+.anl-passo p{font-size:15px;color:var(--txt);line-height:1.65;margin:0}
+
+/* programa de indicação */
+.indica{background:var(--card);border:1px solid var(--bdr);border-radius:16px;padding:26px 24px;text-align:center;margin-top:8px}
+.indica .itag{font-family:var(--mono);font-size:11px;letter-spacing:.8px;text-transform:uppercase;color:var(--gold);margin-bottom:14px}
+.indica h3{font-family:var(--serif);font-size:22px;font-weight:600;line-height:1.25;margin-bottom:12px}
+.indica h3 em{color:var(--gold)}
+.indica p{font-size:14.5px;color:var(--txtm);line-height:1.75;max-width:50ch;margin:0 auto 16px}
+.indica p strong{color:var(--txt)}
+.indica .ichip{display:inline-flex;align-items:center;gap:7px;font-family:var(--mono);font-size:11.5px;color:var(--green);background:var(--greendim);border:1px solid var(--bdr2);padding:8px 14px;border-radius:20px;line-height:1.4}
+
+/* CTA */
+.cta{padding:44px 22px 30px;text-align:center}
+.cta h2{font-family:var(--serif);font-size:clamp(24px,6vw,32px);font-weight:600;line-height:1.2;margin-bottom:10px}
+.cta h2 em{color:var(--gold)}
+.cta p{font-size:15px;color:var(--txtm);margin-bottom:22px;max-width:44ch;margin-left:auto;margin-right:auto}
+.cta-btn{background:#25623b;color:#fff;font-size:17px;font-weight:700;padding:17px 34px;border-radius:12px;text-decoration:none;display:inline-flex;align-items:center;gap:10px;box-shadow:0 6px 20px rgba(37,98,59,.28);transition:transform .1s,filter .15s}
+.cta-btn:hover{filter:brightness(1.1)}
+.cta-btn:active{transform:translateY(1px)}
+
+/* mentor */
+.mentor{background:var(--card);border-top:1px solid var(--bdr2);padding:34px 22px;text-align:center}
+.mentor .ml{font-family:var(--mono);font-size:10px;letter-spacing:1px;text-transform:uppercase;color:var(--gold);margin-bottom:12px}
+.mentor h3{font-family:var(--serif);font-size:22px;font-weight:600;margin-bottom:10px}
+.mentor p{font-size:14.5px;color:var(--txtm);line-height:1.75;max-width:56ch;margin:0 auto}
+
+.foot{text-align:center;padding:26px 22px;font-family:var(--mono);font-size:10.5px;letter-spacing:.5px;color:var(--txtd)}
+</style>
+</head>
+<body>
+<script>window.__CONVITE={"nome":"Socorro","genero":"f","dorKey":"manual","turma":"Turma 1 · vagas abertas","valor":"12x de R$ 250,00","whats":"5561984350270","showOferta":true,"showValor":true,"showBonus":true,"analise":{"arroba":"@nutrisocorrocoelho","seguidores":"11,4 mil","posts":"2.340","foco":"Nutrição oncológica — prevenção, tratamento e pós-câncer","nicho":"Nutrição oncológica: prevenção, tratamento e pós-câncer. Nicho nobre e ultra específico.","publico":"Pacientes em prevenção/tratamento/pós-câncer e suas famílias — atendimento presencial em Teresina.","eixos":[{"nome":"Autoridade","nota":10},{"nome":"Nicho & posicionamento","nota":9},{"nome":"Alcance & formato","nota":5},{"nome":"Escala & automação","nota":3}],"diagnostico":"Sua autoridade é de outro nível: doutora pela UFPI, pioneira em nutrição oncológica no Piauí, +20 anos e presença na mídia. Nesse quesito você joga num campeonato que quase nenhum nutri alcança. O seu problema NÃO é credibilidade — é alcance e TEMPO. Com 2.340 posts, 11,4 mil seguidores pra quem é REFERÊNCIA é pouco, e o acompanhamento dos pacientes (o que você mesma disse que mais te consome) engole os seus dias. Você é uma referência científica presa numa operação manual. É exatamente aí que a I.A. entra — pra virar a sua 'secretária' e finalmente escalar a autoridade que você já construiu.","fortes":["Autoridade científica rara: doutora (UFPI), pioneira no PI, +20 anos e presença na mídia — pouquíssimos nutris têm esse peso.","Nicho ultra específico (oncológica) — o tipo de posicionamento que o algoritmo e o público premiam.","Volume e constância de conteúdo (2.340 posts) — você não tem preguiça de aparecer.","Destaques bem organizados (Sobre mim, Na mídia, Exames) — passam seriedade e profundidade."],"melhorar":["Autoridade gigante, alcance pequeno perto disso: 11,4 mil pra quem é referência é pouco — falta o formato que puxa alcance hoje (Reels curtos de valor) no lugar de só feed.","Você É a secretária: o acompanhamento dos pacientes depende 100% do seu tempo. Isso limita quantos você consegue atender bem.","Detalhes que destoam do seu nível: Linktree genérico e 4,1 mil perfis seguidos diluem o profissionalismo de quem tem a sua autoridade."],"ideias":["Mitos da alimentação no câncer × ciência: 1 mito por semana em Reel curto — tema que a sua autoridade domina e que gera muito salvamento e compartilhamento.","Prevenção no prato: série educativa sobre alimentação preventiva, com base científica — é onde o seu diferencial acadêmico brilha.","Bastidor do cuidado (sem expor paciente): explique COMO você acompanha, o seu método — aproxima e educa dentro da ética."],"estrategias":[{"t":"Uma I.A. de acompanhamento (a sua \"secretária\")","d":"Follow-up, lembretes, materiais e organização dos pacientes saindo quase sozinhos — exatamente o que você pediu."},{"t":"Escale a sua autoridade em Reels","d":"Transforme o que você já sabe em Reels curtos de valor — o formato que leva a sua ciência pra muito mais gente."},{"t":"Automatize exames e relatórios","d":"Leitura de exames e relatórios no seu padrão em minutos — libera o seu tempo pro que só você faz."}],"proximoPasso":"Autoridade você tem de sobra — o que falta é TEMPO e ALCANCE. Comece transformando o acompanhamento manual em automático: é o que mais te consome hoje e o que a I.A. resolve mais rápido. É exatamente o que a gente monta na mentoria."}};</script>
+
+<!-- ============ MODO MONTADOR ============ -->
+<div id="builder">
+  <div class="bld-head">
+    <div class="kick">Decola Nutri · Piloto Automático</div>
+    <h1>Montar apresentação</h1>
+    <p>Preencha os dados do nutri e gere o link personalizado para enviar.</p>
+  </div>
+
+  <div class="fld">
+    <label>Nome do nutri</label>
+    <input id="f-nome" type="text" placeholder="Ex.: Ana" autocomplete="off">
+  </div>
+
+  <div class="fld">
+    <label>Gênero (pra concordância dos textos)</label>
+    <select id="f-genero">
+      <option value="f">Feminino — ela (pronta, acompanhada)</option>
+      <option value="m">Masculino — ele (pronto, acompanhado)</option>
+    </select>
+  </div>
+
+  <div class="fld">
+    <label>Dor principal dela(e)</label>
+    <select id="f-dor-sel">
+      <option value="manual">Atende tudo manual e vive sem tempo</option>
+      <option value="lead">Perde lead no WhatsApp / não dá conta de responder</option>
+      <option value="mao">Faz plano e relatório um por um, na mão</option>
+      <option value="processo">Consultório sem processo / desorganizado</option>
+      <option value="fatura">Trabalha demais e fatura de menos</option>
+      <option value="comecar">Quer usar IA mas não sabe por onde começar</option>
+      <option value="custom">✍️ Digitar uma dor específica…</option>
+    </select>
+  </div>
+  <div class="fld hidden" id="f-dor-custom-wrap">
+    <label>Escreva a dor específica</label>
+    <input id="f-dor-custom" type="text" placeholder="Ex.: Não consegue crescer no Instagram" autocomplete="off">
+  </div>
+
+  <div class="fld">
+    <label>Oferta — turma / datas</label>
+    <input id="f-turma" type="text" placeholder="Ex.: Turma 1 · início 10/ago · encontros ao vivo" autocomplete="off">
+  </div>
+
+  <div class="fld">
+    <label>Valor / condição</label>
+    <input id="f-valor" type="text" placeholder="Ex.: 12x de R$ 197 · vagas limitadas" autocomplete="off">
+  </div>
+
+  <div class="fld">
+    <label>Seu WhatsApp (com DDI e DDD, só números)</label>
+    <input id="f-whats" type="text" inputmode="numeric" placeholder="Ex.: 5511999999999" autocomplete="off">
+    <div class="hint">É pra onde o botão "Quero decolar" vai levar, já com mensagem pronta.</div>
+  </div>
+
+  <div class="toggles">
+    <label class="tg"><input type="checkbox" id="f-show-oferta" checked> Mostrar bloco de oferta</label>
+    <label class="tg"><input type="checkbox" id="f-show-valor" checked> Mostrar valor</label>
+    <label class="tg"><input type="checkbox" id="f-show-bonus" checked> Mostrar bônus (análise de Insta)</label>
+  </div>
+
+  <div class="actions">
+    <button class="btn btn-primary" id="btn-gerar">Gerar link personalizado</button>
+    <button class="btn btn-ghost" id="btn-preview">Pré-visualizar apresentação</button>
+  </div>
+
+  <div class="linkbox hidden" id="linkbox">
+    <div class="lbl">Link para enviar</div>
+    <div class="url" id="link-url"></div>
+    <div class="btns">
+      <button class="btn btn-gold" id="btn-copiar">Copiar link</button>
+      <a class="btn btn-wa" id="btn-wa-share" target="_blank" rel="noopener">Enviar no WhatsApp</a>
+    </div>
+  </div>
+
+  <div class="foot-note">
+    O link carrega os dados dentro dele — nada fica salvo em servidor.<br>
+    Para o nutri abrir no celular, este arquivo precisa estar hospedado (Vercel/Pages). A gente resolve isso depois.
+  </div>
+</div>
+
+<!-- ============ MODO APRESENTAÇÃO ============ -->
+<div id="show" class="hidden"></div>
+
+<script>
+/* ---------- dados fixos da mentoria ---------- */
+var ENCONTROS = [
+  {n:1, fase:"🛫 Decolagem", t:"Sua base pronta", d:"Tudo instalado e no lugar pra I.A. começar a trabalhar com você — e sua primeira automação de nutrição no ar.", sai:"A I.A. configurada e sua 1ª automação rodando"},
+  {n:2, fase:"📡 Instrumentos", t:"I.A. conectada aos seus dados", d:"A I.A. ligada ao seu mundo real: seus materiais, sua agenda e o WhatsApp.", sai:"A I.A. lendo e organizando seus dados reais"},
+  {n:3, fase:"✈️ Cruzeiro", t:"Atendimento no automático · P1", d:"A I.A. preparando e conduzindo o atendimento junto com você.", sai:"Pré-consulta e consulta no automático"},
+  {n:4, fase:"✈️ Cruzeiro", t:"Atendimento no automático · P2", d:"O pós que transforma e fideliza: plano, materiais e acompanhamento.", sai:"Pós-consulta, plano e jornada no automático"},
+  {n:5, fase:"🧭 Expansão", t:"Marketing com I.A.", d:"Atrair paciente: conteúdo, Instagram e páginas que convertem.", sai:"Sua máquina de conteúdo rodando"},
+  {n:6, fase:"🧭 Expansão", t:"Vendas com I.A.", d:"Do lead ao fechamento: WhatsApp, propostas e follow-up.", sai:"Seu comercial no semiautomático"},
+  {n:7, fase:"🛬 Piloto automático", t:"Tudo integrado + Fechamento", d:"Transforme seu consultório num sistema — e cruze a linha de chegada.", sai:"Consultório automatizado e um app seu", finale:true}
+];
+
+/* vitrine — tudo que dá pra fazer com I.A. no consultório */
+var CAPS = [
+  {ic:"📊", t:"Diagnóstico do consultório", d:"Um raio-x de como ele funciona hoje e onde a I.A. entra primeiro."},
+  {ic:"📈", t:"Dashboard sob medida", d:"Um painel com o seu método e os seus números, do seu jeito."},
+  {ic:"🧭", t:"Seu método estruturado", d:"Organizar e afinar o seu acompanhamento nutricional num sistema claro."},
+  {ic:"🧪", t:"Rotinas no automático", d:"Anamnese preenchida, exames laboratoriais analisados, relatórios no seu padrão."},
+  {ic:"📦", t:"Materiais que se entregam sozinhos", d:"Boas-vindas e pré-consulta planejados e disparados por meses."},
+  {ic:"🎁", t:"Apresentações pros pacientes", d:"O seu método explicado de forma linda e personalizada pra cada um."},
+  {ic:"🤖", t:"Uma I.A. que te conhece", d:"Treinada no seu jeito, ajudando em todas as suas tarefas do dia."},
+  {ic:"📩", t:"Leitura de e-mail e mensagens", d:"A I.A. filtra, resume e rascunha respostas por você."},
+  {ic:"💬", t:"Assistente de vendas", d:"Qualifica leads, responde e conduz o comercial com a sua voz."},
+  {ic:"📱", t:"Um app com a sua cara", d:"Pro paciente e pra você — com o seu nome e a sua marca."},
+  {ic:"💰", t:"Financeiro sob controle", d:"Acompanhar entradas, serviços e metas como nunca antes."}
+];
+
+/* dor -> gancho no hero + parágrafo do problema */
+var DORES = {
+  manual:   {gancho:"Você atende o dia todo — e ainda leva relatório, plano e mensagem pra casa.",
+             problema:"Hoje <strong>tudo passa pela sua mão</strong>: anamnese, exames, plano, retorno, mensagem no WhatsApp. Você virou o gargalo do próprio consultório — e não sobra tempo pra atender melhor (nem pra viver)."},
+  lead:     {gancho:"Chega lead no WhatsApp e você não dá conta de responder na hora.",
+             problema:"O lead chega, esfria e some enquanto você atende. Sem processo, <strong>o dinheiro escorre no follow-up</strong> que ninguém tem tempo de fazer."},
+  mao:      {gancho:"Você monta plano e relatório um por um, do zero, na mão.",
+             problema:"Cada paciente é um plano do zero, um relatório do zero, um material do zero. <strong>Trabalho repetitivo</strong> comendo as horas que deveriam ser suas."},
+  processo: {gancho:"Seu consultório funciona, mas na base do improviso e da sua memória.",
+             problema:"Sem processo, cada atendimento depende de você lembrar de tudo. <strong>Não escala, não descansa</strong> — e qualquer imprevisto seu trava a operação inteira."},
+  fatura:   {gancho:"Você trabalha demais e fatura de menos.",
+             problema:"Mais horas não viram mais faturamento — viram cansaço. Falta <strong>alavancagem</strong>: fazer mais e melhor sem colocar mais do seu tempo dentro."},
+  comecar:  {gancho:"Você sabe que a IA pode ajudar — mas não faz ideia de por onde começar.",
+             problema:"Você ouve falar de IA todo dia e sente que está ficando pra trás. Falta <strong>um caminho claro</strong>, no seu nicho, sem precisar programar."},
+  _default: {gancho:"Seu consultório pede mais de você do que você consegue dar.",
+             problema:"O dia a dia do consultório está pesado e <strong>tudo depende de você</strong>. É exatamente aí que a <strong>Inteligência Artificial</strong> entra pra tirar peso das suas costas."}
+};
+
+/* ---------- codificação no link ---------- */
+function encode(obj){ return encodeURIComponent(btoa(unescape(encodeURIComponent(JSON.stringify(obj))))); }
+function decode(str){ try{ return JSON.parse(decodeURIComponent(escape(atob(decodeURIComponent(str))))); }catch(e){ return null; } }
+function esc(s){ return String(s==null?'':s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];}); }
+
+/* ---------- render da apresentação ---------- */
+function renderShow(data, fromBuilder){
+  var nome = (data.nome||'').trim();
+  var gen = (data.genero==='m') ? 'm' : 'f';
+  function g(f,m){ return gen==='m' ? m : f; }
+  var saud = nome ? esc(nome)+',' : 'Nutri,';
+  var dor = data.dorKey==='custom'
+      ? {gancho: esc(data.dorText||'')+'.', problema: 'Hoje <strong>'+esc((data.dorText||'').toLowerCase())+'</strong> está travando o seu consultório — e tirando o seu tempo. É exatamente aí que a <strong>Inteligência Artificial</strong> entra pra tirar peso das suas costas.'}
+      : (DORES[data.dorKey] || DORES._default);
+
+  var encHtml = ENCONTROS.map(function(e){
+    return '<div class="enc'+(e.finale?' finale':'')+'">'
+      +'<div class="top"><span class="n">Encontro '+e.n+'</span></div>'
+      +'<div class="t">'+e.t+'</div>'
+      +'<div class="d">'+e.d+'</div>'
+      +'<div class="sai">'+e.sai+'</div>'
+    +'</div>';
+  }).join('');
+
+  var ofertaHtml = '';
+  if(data.showOferta && (data.turma || (data.showValor && data.valor))){
+    ofertaHtml =
+      '<div class="block"><span class="sec-tag">A oferta</span>'
+      +'<div class="offer">'
+        +'<div class="otag">✈ Embarque agora</div>'
+        + (data.turma ? '<div class="oturma">'+esc(data.turma)+'</div>' : '')
+        + (data.showValor && data.valor ? '<div class="ovalor">'+esc(data.valor)+'</div>' : '')
+        +'<div class="ochips">'
+          +'<span class="ochip">7 encontros em grupo</span>'
+          +'<span class="ochip">4 individuais 1-a-1</span>'
+          +'<span class="ochip">+ aulas gravadas</span>'
+          + (data.showBonus ? '<span class="ochip">🎁 análise de Insta</span>' : '')
+        +'</div>'
+      +'</div></div>';
+  }
+
+  /* CTA WhatsApp */
+  var msg = 'Oi Emerson! '+(nome?'Sou '+nome+'. ':'')+'Quero entrar no Decola Nutri Piloto Automático e colocar meu consultório no automático. Me conta os próximos passos?';
+  var whats = (data.whats||'').replace(/\D/g,'');
+  var waHref = whats ? 'https://wa.me/'+whats+'?text='+encodeURIComponent(msg) : '#';
+
+  var backbar = fromBuilder ? '<div class="backbar" onclick="location.hash=\'\';location.reload()">◀ Voltar ao montador</div>' : '';
+
+  var html = backbar
+  /* HERO */
+  +'<div class="hero">'
+    +'<span class="seal">Decola Nutri · Piloto Automático</span>'
+    +'<h1>'+saud+' seu consultório no <em>piloto automático</em>.</h1>'
+    +'<p class="sub">'+dor.gancho+' <strong>Chegou a hora de mudar isso.</strong></p>'
+  +'</div>'
+
+  /* PROBLEMA */
+  +'<div class="block"><span class="sec-tag">O ponto de partida</span>'
+    +'<h2>Não falta esforço. Falta alavancagem.</h2>'
+    +'<div class="pain">'+dor.problema+'</div>'
+  +'</div>'
+
+  /* A VIRADA */
+  +'<div class="block alt"><span class="sec-tag">A virada</span>'
+    +'<h2>A I.A. <em>a seu favor</em>.</h2>'
+    +'<p>O <strong>Decola Nutri Piloto Automático</strong> te mostra, passo a passo, como colocar a <strong>Inteligência Artificial pra trabalhar a seu favor</strong> — automatizando o que é repetitivo no seu consultório, sem você virar '+g('técnica','técnico')+'.</p>'
+    +'<p>Do primeiro "oi" do lead até o pós-consulta que fideliza, você constrói um consultório que <strong>roda no automático</strong> — no seu método, do seu jeito.</p>'
+  +'</div>'
+
+  /* FORMATO HÍBRIDO */
+  +'<div class="block"><span class="sec-tag">Como funciona</span>'
+    +'<h2>Aula + mão na massa, junto com você.</h2>'
+    +'<p><strong>7 semanas</strong> de mentoria híbrida — nada de curso solto pra assistir e esquecer. Você aprende em grupo e é '+g('acompanhada','acompanhado')+' de perto, um a um, no seu consultório.</p>'
+    +'<div class="pillars">'
+      +'<div class="pillar">'
+        +'<div class="pnum">✈️ Pilar 1 · Ao vivo em grupo</div>'
+        +'<h3>7 encontros em grupo</h3>'
+        +'<p>O plano de voo completo: a cada encontro você coloca mais uma parte do consultório no automático — do atendimento ao comercial.</p>'
+        +'<div class="pillar-meta">📅 Terças, às 19h30 · ao vivo — e todas ficam gravadas pra assistir quando quiser</div>'
+      +'</div>'
+      +'<div class="pillar ind">'
+        +'<div class="pnum">🎯 Pilar 2 · Individual 1-a-1</div>'
+        +'<h3>4 encontros individuais</h3>'
+        +'<ul>'
+          +'<li><strong>1º · Diagnóstico:</strong> raio-x do seu consultório — o que melhorar e onde a I.A. entra primeiro.</li>'
+          +'<li><strong>2º ao 4º · Implementação:</strong> a gente confere o que você montou e tira suas dúvidas conforme as aulas avançam.</li>'
+        +'</ul>'
+        +'<div class="pillar-meta">📅 Agendados no melhor horário pra você</div>'
+      +'</div>'
+      +'<div class="pillar rec">'
+        +'<div class="pnum">🎬 Pilar 3 · No seu ritmo</div>'
+        +'<h3>Aulas gravadas de gestão</h3>'
+        +'<p>Biblioteca de gestão e estruturação de consultório pra assistir quando quiser e reforçar a base do negócio.</p>'
+      +'</div>'
+    +'</div>'
+  +'</div>'
+
+  /* PLANO DE VOO */
+  +'<div class="block alt"><span class="sec-tag">O plano de voo</span>'
+    +'<h2>Os 7 encontros em grupo.</h2>'
+    +'<p>Cada encontro tem uma fase de voo e uma entrega concreta — você sai de cada um com uma parte do consultório já no automático.</p>'
+    +'<div class="enc-grid">'+encHtml+'</div>'
+  +'</div>'
+
+  /* VITRINE — tudo que dá pra fazer com I.A. */
+  +'<div class="block"><span class="sec-tag">O que dá pra fazer</span>'
+    +'<h2>Tudo que a I.A. pode fazer no seu consultório.</h2>'
+    +'<p>Piloto automático não é uma coisa só — é um jeito novo de tocar o consultório inteiro. Alguns exemplos do que a gente monta junto:</p>'
+    +'<div class="caps">'+ CAPS.map(function(c){ return '<div class="cap"><span class="cap-ic">'+c.ic+'</span><div><h4>'+c.t+'</h4><p>'+c.d+'</p></div></div>'; }).join('') +'</div>'
+    +'<div class="caps-close">E o que dá pra fazer com a I.A. dentro do seu consultório?<strong>Praticamente tudo que você imaginar.</strong><span class="caps-sub">É um mundo de possibilidades — e a gente destrava junto.</span></div>'
+  +'</div>'
+
+  /* TRANSFORMAÇÃO */
+  +'<div class="block"><span class="sec-tag">Onde você chega</span>'
+    +'<div class="outcome">'
+      +'<h3>No fim, o consultório trabalha <em>com você</em> — não só por você.</h3>'
+      +'<p>A I.A. cuidando do repetitivo: pré-consulta lida, plano pronto no seu padrão, follow-up que não esquece ninguém e conteúdo saindo no seu estilo. Você volta a ser o comandante — não o operário de cada tarefa.</p>'
+    +'</div>'
+  +'</div>'
+
+  /* PRA QUEM É */
+  +'<div class="block alt"><span class="sec-tag">Pra quem é</span>'
+    +'<h2>Feito pra você se…</h2>'
+    +'<div class="forwho">'
+      +'<div class="fw">É <strong>nutricionista</strong> e quer colocar o atendimento no piloto automático.</div>'
+      +'<div class="fw">Está <strong>'+g('sobrecarregada','sobrecarregado')+'</strong> de tarefas repetitivas e sem tempo.</div>'
+      +'<div class="fw">Quer <strong>usar I.A. no seu método</strong> — sem virar '+g('programadora','programador')+'.</div>'
+      +'<div class="fw">Busca <strong>acompanhamento de perto</strong>, não mais um curso parado na aba.</div>'
+    +'</div>'
+  +'</div>'
+
+  /* ISCA — análise do Insta já preparada */
+  + ((data.showBonus && data.analise) ?
+      '<div class="block"><span class="sec-tag">Um presente pra você</span>'
+      +'<div class="bonus">'
+        +'<div class="btag">🎁 Preparei especialmente pra você</div>'
+        +'<h3>Fiz uma análise do seu Instagram</h3>'
+        +'<p>Dei uma olhada no seu <strong>'+esc(data.analise.arroba||'perfil')+'</strong> e preparei uma análise com pontos fortes, oportunidades e sugestões de estratégia pra atrair mais paciente. É um gostinho do que a I.A. faz por você na mentoria.</p>'
+        +'<button class="bonus-btn" onclick="abrirAnalise()">Abrir minha análise →</button>'
+      +'</div></div>'
+    : '')
+
+  /* OFERTA */
+  + ofertaHtml
+
+  /* PROGRAMA DE INDICAÇÃO */
+  +'<div class="block"><span class="sec-tag">Programa de indicação</span>'
+    +'<div class="indica">'
+      +'<div class="itag">🤝 Indique e trabalhe mais perto de mim</div>'
+      +'<h3>Cada indicação vira <em>mais um encontro comigo</em>.</h3>'
+      +'<p>Conhece outro nutri que precisa disso? A cada pessoa que você indicar e que <strong>entrar na mentoria</strong>, você ganha um <strong>encontro individual extra</strong> comigo — pra afinar ainda mais o seu consultório.</p>'
+      +'<div class="ichip">♾️ Sem limite — quanto mais indicar, mais perto a gente trabalha</div>'
+    +'</div>'
+  +'</div>'
+
+  /* CTA */
+  +'<div class="cta">'
+    +'<h2>'+(nome?esc(nome)+', '+g('pronta','pronto')+' pra ':(g('Pronta','Pronto')+' pra '))+'<em>decolar</em>?</h2>'
+    +'<p>Fale comigo agora e eu te conto os próximos passos pra entrar na turma.</p>'
+    +'<a class="cta-btn" href="'+waHref+'" target="_blank" rel="noopener">Quero decolar →</a>'
+  +'</div>'
+
+  /* MENTOR */
+  +'<div class="mentor">'
+    +'<div class="ml">Seu mentor</div>'
+    +'<h3>Emerson Lima Nutre</h3>'
+    +'<p>Nutricionista, Método HERO / Nutrição Funcional. Colocou o próprio consultório pra rodar com a Inteligência Artificial — do primeiro contato do lead ao pós que fideliza. É esse mesmo caminho que ele te mostra aqui, passo a passo.</p>'
+  +'</div>'
+
+  +'<div class="foot">Decola Nutri · Piloto Automático — Você no comando.</div>';
+
+  document.getElementById('show').innerHTML = html;
+  document.getElementById('builder').classList.add('hidden');
+  document.getElementById('show').classList.remove('hidden');
+  window.__DATA = data; window.__FROMB = fromBuilder;
+  window.scrollTo(0,0);
+}
+
+/* ---------- render da análise do Instagram ---------- */
+function renderAnalise(data, fromBuilder){
+  var a = data.analise || {};
+  var nome = (data.nome||'').trim();
+
+  var perfil = (a.seguidores||a.posts||a.foco) ?
+    '<div class="anl-perfil">'
+     + (a.seguidores?'<div class="pf"><span class="pf-n">'+esc(a.seguidores)+'</span><span class="pf-l">seguidores</span></div>':'')
+     + (a.posts?'<div class="pf"><span class="pf-n">'+esc(a.posts)+'</span><span class="pf-l">posts</span></div>':'')
+     + (a.foco?'<div class="pf pf-wide"><span class="pf-n2">'+esc(a.foco)+'</span><span class="pf-l">foco do perfil hoje</span></div>':'')
+    +'</div>' : '';
+
+  var idcard = (a.nicho||a.publico) ?
+    '<div class="anl-sec"><h2>🎯 Quem você é no Instagram</h2><div class="anl-idcard">'
+    + (a.nicho?'<div class="idrow"><span class="idlbl">Nicho</span><span class="idval">'+esc(a.nicho)+'</span></div>':'')
+    + (a.publico?'<div class="idrow"><span class="idlbl">Público</span><span class="idval">'+esc(a.publico)+'</span></div>':'')
+    +'</div></div>' : '';
+
+  var eixos = (a.eixos&&a.eixos.length) ?
+    '<div class="anl-sec"><h2>📊 Notas por eixo</h2><div class="anl-eixos">'
+    + a.eixos.map(function(e){ var pct=Math.max(0,Math.min(10,Number(e.nota)||0))*10; return '<div class="eixo"><div class="eixo-top"><span>'+esc(e.nome)+'</span><span class="eixo-n">'+esc(e.nota)+'/10</span></div><div class="eixo-bar"><i style="width:'+pct+'%"></i></div></div>'; }).join('')
+    +'</div></div>' : '';
+
+  var fortes = (a.fortes||[]).map(function(x){ return '<div class="anl-item pos"><span>'+esc(x)+'</span></div>'; }).join('');
+  var opp = (a.melhorar||[]).map(function(x){ return '<div class="anl-item opp"><span>'+esc(x)+'</span></div>'; }).join('');
+  var ideias = (a.ideias||[]).map(function(x){ return '<div class="anl-item idea"><span>'+esc(x)+'</span></div>'; }).join('');
+  var estr = (a.estrategias||[]).map(function(e,i){ return '<div class="anl-card"><div class="enum">'+(i+1)+'</div><h3>'+esc(e.t)+'</h3><p>'+esc(e.d)+'</p></div>'; }).join('');
+
+  var msg = 'Oi Emerson! Vi a análise que você preparou do meu Instagram e gostei. Quero saber mais sobre o Decola Nutri Piloto Automático.';
+  var whats=(data.whats||'').replace(/\D/g,'');
+  var waHref = whats ? 'https://wa.me/'+whats+'?text='+encodeURIComponent(msg) : '#';
+
+  var html = '<div class="backbar" onclick="abrirApresentacao()">◀ Voltar à apresentação</div>'
+    +'<div class="anl-hero">'
+      +'<div class="at">🎁 Presente · Decola Nutri Piloto Automático</div>'
+      +'<h1>Análise do seu Instagram</h1>'
+      +'<div class="who">'+esc(a.arroba||'')+(nome?' · '+esc(nome):'')+'</div>'
+    +'</div>'
+    + perfil
+    + idcard
+    + eixos
+    + (a.diagnostico ? '<div class="anl-sec"><h2>📋 Diagnóstico sem filtro</h2><div class="anl-diag">'+esc(a.diagnostico)+'</div></div>' : '')
+    + (fortes ? '<div class="anl-sec"><h2>🔥 O que está no auge</h2><div class="anl-list">'+fortes+'</div></div>' : '')
+    + (opp ? '<div class="anl-sec"><h2>🩹 O que está te segurando</h2><div class="anl-list">'+opp+'</div></div>' : '')
+    + (a.bioSugerida ? '<div class="anl-sec"><h2>✍️ Bio sugerida</h2><div class="anl-bio"><div class="anl-bio-l">Pode copiar e colar:</div>'+esc(a.bioSugerida)+'</div></div>' : '')
+    + (ideias ? '<div class="anl-sec"><h2>💡 Ideias de conteúdo pra já</h2><div class="anl-list">'+ideias+'</div></div>' : '')
+    + (estr ? '<div class="anl-sec"><h2>🚀 Estratégias sugeridas</h2><div class="anl-estrat">'+estr+'</div></div>' : '')
+    + (a.proximoPasso ? '<div class="anl-passo"><div class="pl">👉 Por onde começar</div><p>'+esc(a.proximoPasso)+'</p></div>' : '')
+    +'<div class="anl-foot">'
+      +'<p>Isso é <strong>só um gostinho</strong>. Na mentoria, a I.A. faz esse trabalho por você — no seu estilo, toda semana.</p>'
+      +'<a class="cta-btn" href="'+waHref+'" target="_blank" rel="noopener">Quero decolar →</a>'
+    +'</div>'
+    +'<div class="anl-back" onclick="abrirApresentacao()">◀ Voltar à apresentação</div>'
+    +'<div class="foot">Decola Nutri · Piloto Automático — Você no comando.</div>';
+
+  document.getElementById('show').innerHTML = html;
+  document.getElementById('builder').classList.add('hidden');
+  document.getElementById('show').classList.remove('hidden');
+  window.__DATA = data; window.__FROMB = fromBuilder;
+  window.scrollTo(0,0);
+}
+function abrirAnalise(){ renderAnalise(window.__DATA, window.__FROMB); }
+function abrirApresentacao(){ renderShow(window.__DATA, window.__FROMB); }
+
+/* ---------- coletar dados do form ---------- */
+function collect(){
+  var sel = document.getElementById('f-dor-sel').value;
+  return {
+    nome: document.getElementById('f-nome').value,
+    genero: document.getElementById('f-genero').value,
+    dorKey: sel,
+    dorText: document.getElementById('f-dor-custom').value,
+    turma: document.getElementById('f-turma').value,
+    valor: document.getElementById('f-valor').value,
+    whats: document.getElementById('f-whats').value,
+    showOferta: document.getElementById('f-show-oferta').checked,
+    showValor: document.getElementById('f-show-valor').checked,
+    showBonus: document.getElementById('f-show-bonus').checked
+  };
+}
+function buildLink(data){
+  var base = location.origin + location.pathname;
+  return base + '#d=' + encode(data);
+}
+
+/* ---------- wiring do montador ---------- */
+function initBuilder(){
+  var sel = document.getElementById('f-dor-sel');
+  var customWrap = document.getElementById('f-dor-custom-wrap');
+  sel.addEventListener('change', function(){
+    customWrap.classList.toggle('hidden', sel.value!=='custom');
+  });
+
+  document.getElementById('btn-preview').addEventListener('click', function(){
+    renderShow(collect(), true);
+  });
+
+  document.getElementById('btn-gerar').addEventListener('click', function(){
+    var data = collect();
+    var link = buildLink(data);
+    document.getElementById('link-url').textContent = link;
+    document.getElementById('linkbox').classList.remove('hidden');
+    var msg = 'Oi! Fiz uma apresentação rápida do Piloto Automático pra você dar uma olhada: '+link;
+    var wa = document.getElementById('btn-wa-share');
+    wa.href = 'https://wa.me/?text='+encodeURIComponent(msg);
+    document.getElementById('linkbox').scrollIntoView({behavior:'smooth',block:'nearest'});
+  });
+
+  document.getElementById('btn-copiar').addEventListener('click', function(){
+    var link = document.getElementById('link-url').textContent;
+    var btn = this;
+    function done(){ var o=btn.textContent; btn.textContent='✓ Copiado!'; setTimeout(function(){btn.textContent=o;},1600); }
+    if(navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(link).then(done, function(){ fallbackCopy(link); done(); });
+    } else { fallbackCopy(link); done(); }
+  });
+}
+function fallbackCopy(text){
+  var ta=document.createElement('textarea'); ta.value=text; ta.style.position='fixed'; ta.style.opacity='0';
+  document.body.appendChild(ta); ta.focus(); ta.select();
+  try{ document.execCommand('copy'); }catch(e){}
+  document.body.removeChild(ta);
+}
+
+/* ---------- roteamento ---------- */
+(function(){
+  if(window.__CONVITE){ renderShow(window.__CONVITE, false); return; }
+  var h = location.hash || '';
+  var m = h.match(/^#d=(.+)$/);
+  if(m){
+    var data = decode(m[1]);
+    if(data){ renderShow(data, false); return; }
+  }
+  initBuilder();
+})();
+</script>
+</body>
+</html>
